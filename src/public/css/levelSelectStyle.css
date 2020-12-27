@@ -1,0 +1,174 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: black;
+}
+
+.flex-row{
+    display: flex;
+    flex-direction: row;
+    margin: 25px;
+    background-color: #333;
+    border: 3px groove #555;
+}
+
+.levelContainer{
+    display: flex;
+    flex-direction: column;
+    background-color: #555;
+    width: 20%;
+    height: 750px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.level{
+    display: block;
+    width: 100%;
+    height: 65px;
+    border: black 1px solid;
+    background-color: #aaa;
+    cursor: pointer;
+}
+
+.level p{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.active {
+    border: #111 inset 3px;
+}
+
+.level h3{
+    display: block;
+    margin-left: 5%;
+    position: relative;
+    pointer-events: none;
+    text-decoration: underline;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.level .author{
+    font-style: italic;
+    font-size: 1rem;
+    pointer-events: none; 
+}
+
+.level .difficulty{
+    font-size: 1rem;
+    pointer-events: none; 
+}
+
+.showLevel{
+    width: 80%;
+    flex-grow: 4;
+    background-color: black;
+    border: inset 3px #777;;
+}
+
+#blocksGrid{
+    position: relative;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(10, 75px);
+    grid-template-rows: repeat(5, 15px);
+    grid-auto-flow: column;
+    row-gap: 15px;
+}
+
+#positionGrid{
+    width: 750px;
+    height: 150px;
+}
+
+.brick{
+    border: rgb(50, 50, 50) 1px solid;
+    border-radius: 5px;
+    background-color: rgba(75,75,75, 1);
+    height: 30px;
+    width: 75px;
+}
+
+.secretLevelData{
+    display: none;
+    pointer-events: none; 
+}
+
+#levellist-form{
+    position: relative;
+    width: 120px;
+    height: 60px;
+    background-color: lightgreen;
+}
+
+#levellist-form input{
+    display: none;
+}
+
+#playButton{
+    width: 100%;
+    height: 100%;
+}
+
+#backButton{
+    width: 120px;
+    height: 60px;
+}
+
+#formPosition{
+    position: relative;
+    width: 120px;
+    margin: 0 auto;
+    top: 40%;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
+  }
+
+.indestructible{
+    background-image: url(/assets/images/indestructible.png);
+    border-radius: 0px;
+}
+
+
+.red{
+    background-image: url(/assets/images/brick3_70_30.png);
+}
+
+
+.blue{
+    background-image: url(/assets/images/brick1_70_30.png);
+}
+
+
+.green{
+    background-image: url(/assets/images/brick2_70_30.png);
+}
+
+
+.redExtra{
+    background-image: url(/assets/images/brick3_70_30_extra.png);
+}
+
+.blueExtra{
+    background-image: url(/assets/images/brick1_70_30_extra.png);
+}
+
+.greenExtra{
+    background-image: url(/assets/images/brick2_70_30_extra.png);
+}

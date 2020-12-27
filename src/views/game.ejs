@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <title>Breakout</title>
+  <link rel="stylesheet" href="css/headerStyle.css">
+  <link rel="stylesheet" href="css/gameStyle.css">
+  <script>
+    var customLevel = "<%= level %>"
+    if (customLevel == 'custom'){
+      var customLevelData = "<%= levelData %>"
+    }
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+  </script>
+</head>
+
+<body>
+  <%- include('header')%>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="container"></div>
+
+  <script src="//cdn.jsdelivr.net/npm/phaser@3.17.0/dist/phaser.min.js"></script>
+  <script src="js/levels.js"></script>
+  <script src="js/functions.js"></script>
+  <script src="js/breakout.js"></script>
+</body>
+
+</html>

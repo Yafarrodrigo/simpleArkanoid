@@ -1,0 +1,197 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #111;
+    overflow: hidden;
+}
+
+#gameFrame{
+    background-color: #333;
+    width: 800px;
+    height: 640px;
+    margin: 5% auto 0px auto;
+}
+
+#blocksGrid{
+    position: relative;
+    top: 10px;
+    left: 20px;
+    display: grid;
+    grid-template-columns: repeat(10, 75px);
+    grid-template-rows: repeat(5, 15px);
+    grid-auto-flow: column;
+    row-gap: 14px;
+}
+
+.buttonsPanel{
+    background-color: #555;
+    width: 800px;
+    height: auto;
+    margin: 10px auto;
+}
+
+.buttonBrick{
+    border: none;
+    /* padding: 5px 10px; */
+    width: 75px;
+    height: 30px;
+    margin: 4px;
+    border-radius: 5px;
+    background-color: #888;
+    outline: none;
+    cursor: pointer;
+}
+
+.brick{
+    border: rgb(50, 50, 50) 1px solid;
+    border-radius: 5px;
+    background-color: rgba(75,75,75, 1);
+    height: 30px;
+    width: 75px;
+    cursor: pointer;
+}
+
+.clear-everything{
+    float: right;
+    font-size: 110%;
+    background-color: lightpink;
+}
+
+.back{
+    float: right;
+    background-color: #ff0000;
+    color: white;
+    font-size: 135%;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: rgb(255, 255, 255);
+}
+
+.indestructible{
+    background-image: url(/assets/images/indestructible.png);
+    border-radius: 0px;
+}
+
+
+.red{
+    background-image: url(/assets/images/brick3_70_30.png);
+}
+
+
+.blue{
+    background-image: url(/assets/images/brick1_70_30.png);
+}
+
+
+.green{
+    background-image: url(/assets/images/brick2_70_30.png);
+}
+
+
+.redExtra{
+    background-image: url(/assets/images/brick3_70_30_extra.png);
+}
+
+.blueExtra{
+    background-image: url(/assets/images/brick1_70_30_extra.png);
+}
+
+.greenExtra{
+    background-image: url(/assets/images/brick2_70_30_extra.png);
+}
+
+.clear{
+    font-size: 100%;
+}
+
+#formSaveLevel{
+    position: relative;
+    display: block;
+    padding: 15px;
+    top: auto;
+    margin: 15% 20%;
+    width: 500px;
+    height: 250px;
+    background-color: #ddd;
+    border-radius: 25px;
+    z-index: 5000;
+}
+
+#formSaveLevel input{
+    outline: none;
+    position: relative;
+    display: block;
+    text-align: center;
+    font-size: 1.5rem;
+    width: 470px;
+    height: 50px;
+    background-color:  #fff;
+}
+
+#formSaveLevel select{
+    outline: none;
+    position: relative;
+    display: block;
+    text-align: center;
+    width: 470px;
+    height: 50px;
+    background-color:  #fff;
+}
+
+#formSaveLevel select option{
+    text-align: center;
+}
+
+
+#formSaveLevel #levelData{
+    display: none;
+}
+
+#submitLevel{
+    display: inline-block;
+    outline: none;
+    width: 200px;
+    height: 50px;
+    margin: 15px 0px;
+    border: none;
+    border-radius: 10px;
+    background-color: lightgreen ;
+    cursor: pointer;
+}
+
+.open-form{
+    float: right;
+    font-size: 110%;
+    background-color: lightgreen;
+}
+
+#blackscreen{
+    position: absolute;
+    background-color: black;
+    opacity: 75%;
+    width: 100%;
+    height: 100%;
+    z-index: 3000;
+}
+
+.cancel-form{
+    display: inline-block;
+    outline: none;
+    border: none;
+    width: 200px;
+    height: 50px;
+    margin: 15px 20px;
+    border-radius: 10px;
+    background-color: lightpink;
+    cursor: pointer;
+}
+
+.active{
+    border: solid 1px rgb(255, 201, 24);
+    box-shadow: 0px 0px 5px 1px black;
+}
+
+

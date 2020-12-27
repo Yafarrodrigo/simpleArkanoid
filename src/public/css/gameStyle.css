@@ -1,0 +1,28 @@
+:root{
+  --color-1: #1C0658;
+  --color-2: #5C2686;
+  --color-3: #FF1690;
+  --color-4: #F4D676;
+  --color-5: #36CDC4;
+}
+
+body {
+    height: 100%;
+    margin: 0 auto;
+    padding: 0;
+    background-image: url(../assets/images/backgroundPage.jpg);
+
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+
+#container{
+  padding-top: 40px;
+  padding-bottom: 5px;
+}
+
+canvas{
+  max-width: 100vw;
+  max-height: 825px;
+  border: 5px groove var(--color-1);
+}

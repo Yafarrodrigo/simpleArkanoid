@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level Creator</title>
+    <link rel="stylesheet" href="css/levelCreatorStyle.css">
+    <script defer src="js/levelCreator.js"></script>
+    <script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );}
+        </script>
+</head>
+<body>
+    <div id="blackscreen"></div>
+    <div id="gameFrame">
+        <div id="blocksGrid"></div>
+
+        <form id="formSaveLevel" action="/addLevel" method="POST">
+            <input type="text" name="levelName" id="levelName" placeholder="Level Name" autocomplete="off">
+            <input type="text" name="levelAuthor" id="levelAuthor" placeholder="Author" autocomplete="off">
+            <!-- <input type="text" name="levelDifficulty" id="levelDifficulty" placeholder="Difficulty"> -->
+            <select name="levelDifficulty" id="levelDifficulty">
+                <option hidden selected value="none">Difficulty</option>
+                <option value="easy"> Easy </option>
+                <option value="medium"> Medium </option>
+                <option value="hard"> Hard </option>
+            </select>
+            <input type="text" name="levelData" id="levelData">
+            <button class="cancel-form" type="button"> CANCEL </button>
+            <button id="submitLevel" class="save" type="submit">SAVE</button>
+        </form>
+
+    </div>
+    <div class="buttonsPanel">
+        <button class="buttonBrick blue active"></button>
+        <button class="buttonBrick green"></button>
+        <button class="buttonBrick red"></button>
+        <button class="buttonBrick back"> BACK </button>
+        <br>
+        <button class="buttonBrick blueExtra"></button>
+        <button class="buttonBrick greenExtra"></button>
+        <button class="buttonBrick redExtra"></button>
+        <button class="buttonBrick clear open-form"> SAVE </button>
+        <br>
+        <button class="buttonBrick indestructible"></button>
+        <button class="buttonBrick clear"></button>
+        <button class="buttonBrick clear-everything"> RESET</button>
+        
+    </div>
+</body>
+</html>

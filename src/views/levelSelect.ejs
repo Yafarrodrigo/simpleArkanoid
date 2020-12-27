@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <title>Level Select</title>
+  <link rel="stylesheet" href="css/levelSelectStyle.css">
+  <script  src="js/levelSelect.js"></script>
+  <script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+  </script>
+</head>
+
+<body>
+  <div class="flex-row">
+    <div class="levelContainer noselect">
+      <% allLevels.forEach( level => { %>
+        <div id="<%= level.levelName %>" class="level">
+          <h3 class="lvlNameShow"><%= level.levelName %></h3>
+          <p class="author noselect" ><b>Author:</b><%= level.levelAuthor %></p>
+          <p class="difficulty noselect"><b>Difficulty:</b> <%= level.levelDifficulty %></p>
+          <p class="secretLevelData noselect"><%= level.levelData %></p>
+        </div>
+        <% }) %>
+    </div>
+
+    <div class="showLevel">
+
+      <div id="positionGrid">
+        <div id="blocksGrid"></div>
+      </div>
+
+      <div id="formPosition">
+        <form action="/play" method="POST" id="levellist-form">
+          <input type="text" name="levelData" id="levelToSend" required>
+          <button id="playButton"type="submit">PLAY</button>      
+        </form>
+        <button id="backButton" class="back" type="back">BACK</button>
+      </div>
+    </div>
+
+  </div>
+</body>
+
+</html>
