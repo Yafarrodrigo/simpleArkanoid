@@ -1,10 +1,7 @@
 agregar sprite en preload
-crear grupo de prites
-agregar colision con pelota y boundaries
-opcional agregar funcion para colision con pelota
+crear array de sprites en "blockArrays.js"
+agregar a crearCollitions() en "functions.js"
 agregarlo a la funcion isWon() (en functions.js)
-agregarlo a la funcion hitPlayer (en functions.js)
 agregarlo a la funcion createBlocksArray() (en functions.js)
 agregarlo a la funcion borrarTodosLosBloques() (en functions.js)
-agregarlo a la funcion pasarDeLvl() (en functions.js)
 
