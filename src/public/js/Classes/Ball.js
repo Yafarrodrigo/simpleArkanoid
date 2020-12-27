@@ -11,13 +11,6 @@ export default class Ball extends Phaser.Physics.Arcade.Sprite{
   }
 
   update(){
-
-    // chequea si las bolas salen del juego y las elimina
-    if (this.body.y > this.scene.physics.world.bounds.height){
-      this.disableBody(true, true);
-      this.scene.balls.remove(this)
-    }
-
     // rotacion de las bolas
     this.angle -= 10
 

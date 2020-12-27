@@ -4,6 +4,7 @@ import {disableAllBalls,isGameOver,isWon,pasarDeLvl,
 import Ball from './Ball.js'
 import Player from './Player.js'
 import { level1, level2, level3 } from '../levels.js'
+import PowerUp from './powerUp.js';
 
 export default class MainScene extends Phaser.Scene {
     constructor(){
@@ -16,6 +17,8 @@ export default class MainScene extends Phaser.Scene {
         this.load.image('background', 'assets/images/background.jpg')
         Ball.preload(this)
         Player.preload(this)
+        PowerUp.preload(this)
+        this.load.image('brick1', 'assets/images/brick1_70_30.png')
         this.load.image('brick1', 'assets/images/brick1_70_30.png')
         this.load.image('brick2', 'assets/images/brick2_70_30.png')
         this.load.image('brick3', 'assets/images/brick3_70_30.png')
@@ -26,21 +29,23 @@ export default class MainScene extends Phaser.Scene {
         this.load.image('brickDmg2', 'assets/images/brick2_70_30_dmg.png')
         this.load.image('brickDmg3', 'assets/images/brick3_70_30_dmg.png')
         this.load.image('indestructible', 'assets/images/indestructible.png')
-      }  
+    }  
       
     create() {
   
       //create background
       this.background = this.add.image(0, 0, 'background').setOrigin(0);
 
-    
       // crea los grupos de objetos
+      this.allBlocks = this.physics.add.group({immovable: true})
       this.blocks = this.physics.add.group({immovable: true})
       this.indestructibleBlocks = this.physics.add.group({immovable: true})
       this.extraHitBlocks = this.physics.add.group({immovable: true})
       this.damagedBlocks = this.physics.add.group({immovable: true})
+
+      this.powerUps = this.physics.add.group()
       this.balls = this.physics.add.group()
-    
+
       //crea el player y ball principal
       this.player = new Player({scene:this, x:400, y:580})
       this.ball = new Ball({scene:this,x:400 ,y:560})
@@ -81,7 +86,7 @@ export default class MainScene extends Phaser.Scene {
     update() {
     
       // PERDER
-      if (isGameOver(this.balls, this)) {
+      if (isGameOver(this)) {
         this.gameOverText.setVisible(true);
         this.ball.disableBody(true, true);
     
@@ -126,9 +131,19 @@ export default class MainScene extends Phaser.Scene {
       }else{
           this.player.body.setVelocityX(0);
       }
-        
+
+      // chequea si las bolas salen del juego y las elimina
+      this.balls.getChildren().forEach( ball => {
+        if (ball.body.y > this.physics.world.bounds.height){
+          ball.disableBody(true, true)
+          this.balls.remove(ball)
+        }
+      })
+
       this.player.update()
       this.ball.update()
+      
+      this.powerUps.getChildren().forEach( powerUp => powerUp.update())
     }
       
   }

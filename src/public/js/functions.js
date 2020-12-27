@@ -1,25 +1,22 @@
 import { extraHitBricks, damagedBricks } from './blockArrays.js'
 import Ball from './Classes/Ball.js'
+import PowerUp from './Classes/powerUp.js'
 
 
 export function disableAllBalls(data){
-  let listOfBalls = Array.from(data.balls.getChildren())
-  let numberOfBalls = listOfBalls.length
 
-  for( let i = 0; i < numberOfBalls; i++){
-
-    listOfBalls.forEach( ball => {
+  data.balls.getChildren().forEach( ball => {
       ball.disableBody(true,true)
       data.balls.remove(ball)
-    })
-  }
+  })
+
 }
 
 // si no hay mas bolas -> perdiste
-export function isGameOver(balls, data) {
+export function isGameOver(data) {
     if (data.gameStarted){
 
-      if(balls.getLength() == 0){
+      if(data.balls.getLength() == 0){
         return true
       }else{
         return false
@@ -29,13 +26,12 @@ export function isGameOver(balls, data) {
 
 // si no hay mas bloques -> ganaste
 export function isWon(data) {
-  if (data.blocks.getLength()          === 0 &&
-      data.extraHitBlocks.getLength()  === 0 &&
-      data.damagedBlocks.getLength()   === 0) {
+  if (data.allBlocks.getLength() === 0) {
         return true
       }else{
         return false
-      }   
+      } 
+  
 }
 
 // creacion del array de nivel
@@ -55,31 +51,37 @@ export function createBlocksArray(level, data){
         case 11:
           newBlock = data.physics.add.sprite( blockX, blockY, 'brick1' );
           data.blocks.add(newBlock)
+          data.allBlocks.add(newBlock)
           break;
 
         case 12:
           newBlock = data.physics.add.sprite( blockX, blockY, 'brick2' );
           data.blocks.add(newBlock)
+          data.allBlocks.add(newBlock)
           break;
 
         case 13:
           newBlock = data.physics.add.sprite( blockX, blockY, 'brick3' );
           data.blocks.add(newBlock)
+          data.allBlocks.add(newBlock)
           break;
 
         case 31:
            newBlock = data.physics.add.sprite( blockX, blockY, 'extraHitBlock1' );
            data.extraHitBlocks.add(newBlock)
+           data.allBlocks.add(newBlock)
           break;
 
         case 32:
           newBlock = data.physics.add.sprite( blockX, blockY, 'extraHitBlock2' );
           data.extraHitBlocks.add(newBlock)
+          data.allBlocks.add(newBlock)
           break;
 
         case 33:
           newBlock = data.physics.add.sprite( blockX, blockY, 'extraHitBlock3' );
           data.extraHitBlocks.add(newBlock)
+          data.allBlocks.add(newBlock)
           break;
 
         case 2:
@@ -189,7 +191,6 @@ export function crearCollitions(data){
     ball.body.setCollideWorldBounds(true);
     ball.body.setBounce(1, 1);
   })
-  
   data.physics.world.checkCollision.down = false;
   
 }
@@ -205,13 +206,8 @@ function borrarTodosLosBloques(data){
       block.destroy()
     })
   }
-  while(data.extraHitBlocks.getLength() != 0){
-    data.indestructibleBlocks.getChildren().forEach(block=>{
-      block.destroy()
-    })
-  }
-  while(data.damagedBlocks.getLength() != 0){
-    data.indestructibleBlocks.getChildren().forEach(block=>{
+  while(data.allBlocks.getLength() != 0){
+    data.allBlocks.getChildren().forEach(block=>{
       block.destroy()
     })
   }
@@ -227,29 +223,16 @@ function hitBrick(ball, brick) {
       ball.body.setVelocityX(-150);
     }
   }
-  
-  // if (blocks.getLength()        != 0 ||
-  //   extraHitBlocks.getLength()  != 0 ||
-  //   damagedBlocks.getLength()   != 0   ){
-          
-  //    newBall = this.physics.add.sprite(
-  //   ball.x,
-  //   ball.y,
-  //   'ball'
-  //   );
-  //   balls.add(newBall)
 
-  //    randomYVelocityValue = 300 + Phaser.Math.Between((-50), (-100))
-  //   newBall.setVelocityY(randomYVelocityValue)
-
-  //   this.physics.add.collider(newBall, player, hitPlayer, null, this);
-    
-  //   newBall.setCollideWorldBounds(true);
-  //   newBall.setBounce(1, 1); 
-  // }
-  
   brick.disableBody(true, true);
   brick.destroy()
+
+  let randomNum = Math.random()*100
+  if (randomNum > 10){
+    let newPowerUp = new PowerUp({scene:ball.scene, x:brick.x, y:brick.y})
+    ball.scene.powerUps.add(newPowerUp)
+    ball.scene.physics.add.collider(ball.scene.player, newPowerUp, getPowerUp,null, this);
+  }
 }
 
 function hitBrickIndestructible(ball){
@@ -281,6 +264,7 @@ function hitBrickExtraHit(ball, brick){
   let newBlockKey = damagedBricks[prevBlockKey]
   let newBlock = ball.scene.physics.add.sprite( brick.x, brick.y, newBlockKey );
   ball.scene.damagedBlocks.add(newBlock)
+  ball.scene.allBlocks.add(newBlock)
 
 }
   
@@ -289,10 +273,27 @@ function hitPlayer(ball, player) {
   ball.setVelocityY(ball.body.velocity.y - 3);
 
   if (ball.x > player.x){
-      ball.body.setVelocityX(Math.abs(ball.x - player.x)* 4) 
-  }else if (ball.x < player.x){
-      ball.body.setVelocityX(Math.abs(ball.x - player.x)*(-4))
-  }else{
-      ball.body.setVelocityX(0)
-  }
+    let newVelocity = Math.abs(ball.x - player.x) * 4
+    if (newVelocity > 240){ newVelocity = 240 }
+    ball.body.setVelocityX(newVelocity) 
+}else if (ball.x < player.x){
+  let newVelocity = Math.abs(ball.x - player.x) * (-4)
+  if (newVelocity < (-240)){ newVelocity = (-240) }
+    ball.body.setVelocityX(newVelocity)
+}else{
+    ball.body.setVelocityX(0)
+}
+}
+
+function getPowerUp(player, powerUp){
+  console.log('POWER UP')
+  powerUp.disableBody(true, true)
+  player.scene.powerUps.remove(powerUp)
+
+  player.setTexture('bigPaddle')
+  player.setSize()
+  let duration = setTimeout(() => {
+    player.setTexture('paddle'); player.setSize()
+  }, 5000)
+
 }
