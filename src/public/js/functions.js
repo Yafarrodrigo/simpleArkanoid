@@ -85,7 +85,7 @@ export function createBlocksArray(level, data){
           break;
 
         case 2:
-          newBlock = data.physics.add.sprite( blockX, blockY, 'indestructible' );
+          newBlock = data.physics.add.sprite( blockX, blockY, 'indestructible');
           data.indestructibleBlocks.add(newBlock)
           break;
       }    
@@ -97,6 +97,11 @@ export function createBlocksArray(level, data){
 // pasar de level
 export function pasarDeLvl(level, data){ 
   borrarTodosLosBloques(data)
+
+  data.powerUps.getChildren().forEach( powerUp => {
+    powerUp.disableBody(true, true)
+    data.powerUps.remove(powerUp)
+  })
 
   data.openingText.setVisible(true);
   createBlocksArray(level, data)
@@ -123,7 +128,7 @@ export function crearTextos(data){
         fontSize: '50px',
         fill: '#fff'
       }
-  );
+  ).setOrigin(0.5);
   data.openingText.setOrigin(0.5);
 
   // Texto Game Over
@@ -228,10 +233,17 @@ function hitBrick(ball, brick) {
   brick.destroy()
 
   let randomNum = Math.random()*100
-  if (randomNum > 10){
+  // expand player powerUp
+  if (randomNum <= 10){
     let newPowerUp = new PowerUp({scene:ball.scene, x:brick.x, y:brick.y})
     ball.scene.powerUps.add(newPowerUp)
     ball.scene.physics.add.collider(ball.scene.player, newPowerUp, getPowerUp,null, this);
+
+   // extra ball powerUp
+  }else if(randomNum > 10 && randomNum < 20){
+    let newPowerUp = new PowerUp({scene:ball.scene, x:brick.x, y:brick.y})
+    ball.scene.powerUps.add(newPowerUp)
+    ball.scene.physics.add.collider(ball.scene.player, newPowerUp, getPowerUpExtraBall,null, this);
   }
 }
 
@@ -286,7 +298,7 @@ function hitPlayer(ball, player) {
 }
 
 function getPowerUp(player, powerUp){
-  console.log('POWER UP')
+
   powerUp.disableBody(true, true)
   player.scene.powerUps.remove(powerUp)
 
@@ -296,4 +308,14 @@ function getPowerUp(player, powerUp){
     player.setTexture('paddle'); player.setSize()
   }, 5000)
 
+}
+
+function getPowerUpExtraBall(player, powerUp){
+  powerUp.disableBody(true, true)
+  player.scene.powerUps.remove(powerUp)
+
+  let ball = new Ball({scene:player.scene,x:player.x ,y:560})
+  player.scene.balls.add(ball)
+  ball.setVelocityY(-300)
+  crearCollitions(player.scene)
 }

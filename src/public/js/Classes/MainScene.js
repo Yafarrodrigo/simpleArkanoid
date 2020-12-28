@@ -84,11 +84,16 @@ export default class MainScene extends Phaser.Scene {
     }
     
     update() {
-    
+
       // PERDER
       if (isGameOver(this)) {
         this.gameOverText.setVisible(true);
         this.ball.disableBody(true, true);
+
+        this.powerUps.getChildren().forEach( powerUp => {
+          powerUp.disableBody(true, true)
+          this.powerUps.remove(powerUp)
+        })
     
       // GANAR o PASAR DE LVL
       } else if (isWon(this)) {
