@@ -1,13 +1,19 @@
+require("dotenv").config()
+
 const express = require("express");
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000
+const server = require("http").Server(app)
+const socket = require("socket.io")(server)
+
 require('./database.js');
 const LevelDB = require('./models/level.js')
 
 var playCreatedLevel = false
 var customLevelData = 0
+var users = {}
 
-app.listen(port,()=>{
+server.listen(port,()=>{
     console.log(`server in 192.168.0.4:${port}`)
 })
 
@@ -68,4 +74,23 @@ app.post('/play', (req,res) => {
     })
     
     res.redirect('/')
+})
+
+
+/////////////////////////////////////////////////////////
+
+socket.on("connection", (socket) => {
+    users[socket.id] = {playCreatedLevel: false}
+
+    socket.on("customLevelNo", () => {
+        users[socket.id] = {playCreatedLevel: false}
+    })  
+    
+    socket.on("customLevelYes", () => {
+        users[socket.id] = {playCreatedLevel: true}
+    })    
+
+    socket.on("disconnect", () => {
+        delete users[socket.id]
+    })
 })

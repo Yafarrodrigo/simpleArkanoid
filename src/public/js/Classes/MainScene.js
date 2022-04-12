@@ -32,6 +32,13 @@ export default class MainScene extends Phaser.Scene {
     }  
       
     create() {
+
+      var clientSocket = io("192.168.0.4:3000")
+
+      if(sessionStorage.getItem("customLevel") == null){
+        sessionStorage.setItem("customLevel", false)
+        clientSocket.emit("customLevelNo")
+      }
   
       //create background
       this.background = this.add.image(0, 0, 'background').setOrigin(0);

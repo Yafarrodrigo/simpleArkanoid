@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
-const MONGODB_URI = 'mongodb+srv://Arkanoid:majuky1992@arkanoidlevles.qafsq.mongodb.net/levelsDB?retryWrites=true&w=majority'
 
-mongoose.connect(MONGODB_URI,{
+mongoose.connect(process.env.MONGODB_URI,{
     useUnifiedTopology: true,
     useNewUrlParser: true
 })
