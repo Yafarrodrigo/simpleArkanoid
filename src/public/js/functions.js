@@ -220,14 +220,7 @@ function borrarTodosLosBloques(data){
 
 function hitBrick(ball, brick) {
 
-  if (ball.body.velocity.x === 0) {
-    let randNum = Math.random();
-    if (randNum >= 0.5) {
-      ball.body.setVelocityX(150);
-    } else {
-      ball.body.setVelocityX(-150);
-    }
-  }
+  ballFirstHit(ball)
 
   brick.disableBody(true, true);
   brick.destroy()
@@ -248,28 +241,14 @@ function hitBrick(ball, brick) {
 }
 
 function hitBrickIndestructible(ball){
-  if (ball.body.velocity.x === 0) {
-    let randNum = Math.random();
-    if (randNum >= 0.5) {
-      ball.body.setVelocityX(150);
-    } else {
-      ball.body.setVelocityX(-150);
-    }
-  }
+  ballFirstHit(ball)
 }
 
 function hitBrickExtraHit(ball, brick){
   brick.disableBody(true, true);
   brick.destroy()
 
-  if (ball.body.velocity.x === 0) {
-    let randNum = Math.random();
-    if (randNum >= 0.5) {
-      ball.body.setVelocityX(150);
-    } else {
-      ball.body.setVelocityX(-150);
-    }
-  }
+  ballFirstHit(ball)
 
   let prevBlockKey = extraHitBricks.indexOf(brick.texture.key)
 
@@ -282,19 +261,20 @@ function hitBrickExtraHit(ball, brick){
   
 function hitPlayer(ball, player) {
 
-  ball.setVelocityY(ball.body.velocity.y - 3);
-
   if (ball.x > player.x){
-    let newVelocity = Math.abs(ball.x - player.x) * 4
-    if (newVelocity > 240){ newVelocity = 240 }
-    ball.body.setVelocityX(newVelocity) 
-}else if (ball.x < player.x){
-  let newVelocity = Math.abs(ball.x - player.x) * (-4)
-  if (newVelocity < (-240)){ newVelocity = (-240) }
-    ball.body.setVelocityX(newVelocity)
-}else{
+    let newVelocityX = Math.abs(ball.x - player.x) * 4
+    if (newVelocityX > 300){ newVelocityX = 300 }
+    ball.body.setVelocityX(newVelocityX) 
+  }
+  else if (ball.x < player.x){
+    let newVelocityX = Math.abs(ball.x - player.x) * (-4)
+    if (newVelocityX < (-300)){ newVelocityX = (-300) }
+      ball.body.setVelocityX(newVelocityX)
+  }
+  else
+  {
     ball.body.setVelocityX(0)
-}
+  }
 }
 
 function getPowerUp(player, powerUp){
@@ -318,4 +298,16 @@ function getPowerUpExtraBall(player, powerUp){
   player.scene.balls.add(ball)
   ball.setVelocityY(-300)
   crearCollitions(player.scene)
+}
+
+function ballFirstHit(ball){
+
+  if (ball.body.velocity.x === 0) {
+    let randNum = Math.random();
+    if (randNum >= 0.5) {
+      ball.body.setVelocityX(Math.floor(Math.random()*200)+100);
+    } else {
+      ball.body.setVelocityX(-(Math.floor(Math.random()*200)+100));
+    }
+  }
 }

@@ -33,7 +33,7 @@ export default class MainScene extends Phaser.Scene {
       
     create() {
 
-      var clientSocket = io("192.168.0.4:3000")
+      const clientSocket = io("192.168.0.4:3000")
 
       if(sessionStorage.getItem("customLevel") == null){
         sessionStorage.setItem("customLevel", false)

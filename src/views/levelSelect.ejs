@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <title>Level Select</title>
   <link rel="stylesheet" href="css/levelSelectStyle.css">
+  <link rel="stylesheet" href="css/headerStyle.css">
   <script  src="js/levelSelect.js"></script>
   <script>
     if ( window.history.replaceState ) {
@@ -15,6 +16,7 @@
 </head>
 
 <body>
+  <%- include('header')%>
   <div class="flex-row">
     <div class="levelContainer noselect">
       <% allLevels.forEach( level => { %>

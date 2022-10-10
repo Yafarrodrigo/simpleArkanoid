@@ -14,7 +14,7 @@ var customLevelData = 0
 var users = {}
 
 server.listen(port,()=>{
-    console.log(`server in 192.168.0.4:${port}`)
+    console.log(`server in localhost:${port}`)
 })
 
 
@@ -30,7 +30,6 @@ app.get("/", (req,res)=>{
         res.render('game', {level:'custom', levelData: JSON.stringify(customLevelData)})
     }else{
         res.render('game', {level:'default', levelData: JSON.stringify(customLevelData)})
-        //res.redirect('/levellist')
     }
 
     playCreatedLevel = false
@@ -38,7 +37,7 @@ app.get("/", (req,res)=>{
 })
 
 app.get("/levelList", async (req,res)=>{
-    let getLevels = await LevelDB.find( (err, allLevels) => {
+    await LevelDB.find( (err, allLevels) => {
         if (err){
             console.log(err)
             res.send(err)
@@ -68,7 +67,7 @@ app.post('/play', (req,res) => {
     
     let data = level
     let filter1 = data.split(',')
-    let filter2 = filter1.forEach(elem => {
+    filter1.forEach(elem => {
         let newElem = elem.replace('[', '').replace(']', '').replace('"', '').replace('"', '')
         customLevelData.push(parseInt(newElem))
     })
