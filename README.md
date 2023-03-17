@@ -1,11 +1,8 @@
-# simpleArkanoid [WIP]
+# simpleArkanoid [not deployed yet]
 
-Un simple arkanoid clone, hecho con Phaser (framework para crear juegos) que fue uno de los primeros juegos que hice con javascript.
-También se pueden crear niveles, jugarlos y guardarlos!
+Simple arkanoid clone, made with Phaser framework, one of the first games I made in Javascript
 
-Todavía no esta deployado pero se puede ejecutar con: ``npm start``
-
-## Algunas imágenes:
+## Somes images:
 
 ![image info](./ark1.jpg)
 
